@@ -1,8 +1,5 @@
-
-# this is the first class that we will instantiate
-# Pick a decor - Classic, Modern, Take-Out
-#
 import random
+from pizza import Pizza
 
 
 class Shop():
@@ -17,11 +14,13 @@ class Shop():
         # self.pizza_region = pizza_region
 
     def pick_decor(self, decor):
-        self.decor = ['pick_random', 'italian', 'takeout']
+        self.decor = ['pick_random', 'chain', 'italian', 'takeout']
         # This stuff should probably be inside shop, THis section should be only the functionality.
         for pick_shop in range(decor):
             if decor == 'pick_random':
-                random.choice(decor)  # Check which one this is lol
+                random.choice(decor)
+            elif decor == 'chain':
+                pass
             elif decor == 'italian':
                 pass
             elif decor == 'takeout':  # THis one will force pizza_style ????
@@ -43,15 +42,15 @@ class Shop():
         elif oven == Brick:
             pass
 
-        oven = input('Pick an oven style \n[1]Gas \n[2]Wood \n [3]Brick')
-        # I think these might be protected, so users pizza types get stuck w this.
+    #     oven = input('Pick an oven style \n[1]Gas \n[2]Wood \n [3]Brick')
+    #     # I think these might be protected, so users pizza types get stuck w this.
 
     def pizza_style(self):
+        pizza_type = [Slices, NYC, Chicago, Chain]
         # based on decor / oven ========= these will create overriding classes that will affect topping choices/ prices / final result.
         # by the slice (ghetto pizza)
         # nyc (margherita, toppings like basil, etc.)
         # chain (full pizzas, comes in pairs, has more deals)
         # chicago (pizza pie $50 each)
-        pizza_style = [Slices, NYC, Chicago, Chain, **args]
 
         pass
