@@ -31,7 +31,7 @@ class Start():
                 custom_pizza.pick_sauce()
                 custom_pizza.add_toppings()
                 bake = Bake(custom_pizza, self.order_num,
-                            custom_pizza.toppings)
+                            custom_pizza.toppings, custom_pizza.sauce)
                 bake.bake_pizza()
             elif pizza_start == '3':
                 break
@@ -40,9 +40,9 @@ class Start():
 
 class Pizza():  # This class is the parent class for pizzas
     def __init__(self):
-        self.toppings = list()
-        self.size_options = {'small': 8, 'medium': 12, 'large': 18}
-        self.pizza_type = ['cheese', 'pepperoni']
+        # self.toppings = list()
+        self.size_options = {'Small': 8, 'Medium': 12, 'Large': 18}
+        self.pizza_type = ['Cheese', 'Margherita', 'Pepperoni', 'Clam']
         self.pizza_price = 1
         self.size = None
         self.crust = None
@@ -52,11 +52,11 @@ class Pizza():  # This class is the parent class for pizzas
         size_input = input(
             'What size do you want?\n[1] Small \n[2] Medium \n[3] Large\n')
         if size_input == '1':
-            self.size = 'small'
+            self.size = 'Small'
         elif size_input == '2':
-            self.size = 'medium'
+            self.size = 'Medium'
         elif size_input == '3':
-            self.size = 'large'
+            self.size = 'Large'
         # Assigning the price of the pizza base don the size
         self.pizza_price = self.size_options[self.size]
         return self.size
@@ -94,18 +94,18 @@ class Custom_Pizza(Pizza):
     def __init__(self):
         self.pizza_price = 1
         self.toppings = []
+        self.sauce = []
         self.size = None
-        self.size_options = {'small': 8, 'medium': 12, 'large': 18}
+        self.size_options = {'Small': 8, 'Medium': 12, 'Large': 18}
         self.crust = None
-        self.sauce = None
 
     # Asks user to pick a sauce type
     def pick_sauce(self):
         sauce_input = input(
             'Red or white sauce?\n[1] Red \n[2] White\n')
-        if sauce_input == 1:
+        if sauce_input == '1':
             self.sauce = 'Red'
-        elif sauce_input == 2:
+        elif sauce_input == '2':
             self.sauce = 'White'
         return self.sauce
 
@@ -128,16 +128,21 @@ class Custom_Pizza(Pizza):
 
 # Bake Class prints returns, takes Start as it's Parent
 class Bake(Start):
-    def __init__(self, pizza, order_num, toppings=None):
+    def __init__(self, pizza, order_num, toppings=None, sauce=None):
         # Attributes and returns from other classes
         self.pizza = pizza
         self.toppings = toppings
+        self.sauce = sauce
         super().__init__(order_num)
         self.order_num = order_num
 
     def bake_pizza(self):
-        print((
-            f'Buzz, Buzz, Beep, Boop. Your Pizza is ready:\nYou ordered a {self.pizza.size} {self.pizza.pizza_type} {self.toppings} toppings pizza with {self.pizza.crust} crust.\nYour total is: ${self.pizza.pizza_price:.2f} and your order number is #{self.order_num}').replace('[', '').replace(']', ''))
+        if self.toppings != None:
+            print((
+                f'Buzz, Buzz, Beep, Boop. Your Pizza is ready:\nYou ordered a {self.pizza.size}, {self.sauce}, {self.pizza.pizza_type} {self.toppings} toppings pizza with {self.pizza.crust} crust.\nYour total is: ${self.pizza.pizza_price:.2f} and your order number is #{self.order_num}').replace('[', '').replace(']', ''))
+        elif self.toppings == None:
+            print(
+                f'Buzz, Buzz, Beep, Boop. Your Pizza is ready:\nYou ordered a {self.pizza.size} {self.pizza.pizza_type} pizza with {self.pizza.crust} crust.\nYour total is: ${self.pizza.pizza_price:.2f} and your order number is #{self.order_num}')
 
 
 if __name__ == "__main__":
